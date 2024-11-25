@@ -1,6 +1,7 @@
 # cpp-learning
 
 ### Leetcode
+- [25/11/24 - Sliding Puzzle](./Leetcode/25-11-24/)
 - [24/11/24 - Maximum Matrix Sum](./Leetcode/24-11-24/)
 - [23/11/24 - Rotating the Box](./Leetcode/23-11-24/)
 - [22/11/24 - Flip Columns For Maximum Number of Equal Rows](./Leetcode/22-11-24/)
