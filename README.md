@@ -1,6 +1,7 @@
 # cpp-learning
 
 ### Leetcode
+- [27/11/24 - Shortest Distance After Road Addition Queries I](./Leetcode/27-11-24/)
 - [26/11/24 - Find Champion II](./Leetcode/26-11-24/)
 - [25/11/24 - Sliding Puzzle](./Leetcode/25-11-24/)
 - [24/11/24 - Maximum Matrix Sum](./Leetcode/24-11-24/)
