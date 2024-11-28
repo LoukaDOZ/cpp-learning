@@ -20,6 +20,6 @@ Return the minimum number of minutes needed for you to take at least `k` of each
 
 #### Constraints:
 
-`1 <= s.length <= 105`\
+`1 <= s.length <= 10^5`\
 `s consists of only the letters 'a', 'b', and 'c'.`\
 `0 <= k <= s.length`

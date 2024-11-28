@@ -25,9 +25,9 @@ There are a total of 4 unguarded cells, so we return 4. |
 
 #### Constraints:
 
-`1 <= m, n <= 105`\
-`2 <= m * n <= 105`\
-`1 <= guards.length, walls.length <= 5 * 104`\
+`1 <= m, n <= 10^5`\
+`2 <= m * n <= 10^5`\
+`1 <= guards.length, walls.length <= 5 * 10^4`\
 `2 <= guards.length + walls.length <= m * n`\
 `guards[i].length == walls[j].length == 2`\
 `0 <= rowi, rowj < m`\
