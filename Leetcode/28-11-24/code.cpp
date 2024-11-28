@@ -1,61 +1,39 @@
-struct Node {
-    int x, y, nbObstaclesRemoved, score;
-};
-
-class Compare {
-public:
-    bool operator()(Node below, Node above) {
-        return below.score < above.score;
-    }
-};
-
 class Solution {
 public:
     int minimumObstacles(vector<vector<int>>& grid) {
-        int endx = grid.size() - 1;
-        int endy = grid[0].size() - 1;
-        int bestObstaclesRemoved = INT_MAX;
+        int m = grid.size();
+        int n = grid[0].size();
 
-        set<pair<int,int>> excluded;
-        priority_queue<Node, vector<Node>, Compare> queue;
-        queue.push({0, 0, 0, 0});
+        vector<vector<int>> distances(m, vector<int>(n, INT_MAX));
+        deque<pair<int,int>> queue;
+        vector<pair<int,int>> nextPos = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+        distances[0][0] = 0;
+        queue.push_front({0, 0});
 
         while(!queue.empty()) {
-            Node node = queue.top();
-            queue.pop();
+            pair<int,int> pos = queue.front();
+            queue.pop_front();
 
-            if(node.x == endx && node.y == endy) {
-                bestObstaclesRemoved = node.nbObstaclesRemoved;
-                break;
-            }
+            for(pair<int,int> next: nextPos) {
+                int x = pos.first + next.first;
+                int y = pos.second + next.second;
 
-            if(!excluded.insert({node.x, node.y}).second)
-                continue;
-            
-            vector<Node> nexts;
+                if(x >= 0 && x < m && y >= 0 && y < n) {
+                    int dist = distances[pos.first][pos.second] + grid[x][y];
 
-            if(node.x > 0)
-                nexts.push_back({node.x - 1, node.y, node.nbObstaclesRemoved + grid[node.x - 1][node.y], 0});
-            
-            if(node.x < endx)
-                nexts.push_back({node.x + 1, node.y, node.nbObstaclesRemoved + grid[node.x + 1][node.y], 0});
-            
-            if(node.y > 0)
-                nexts.push_back({node.x, node.y - 1, node.nbObstaclesRemoved + grid[node.x][node.y - 1], 0});
-            
-            if(node.y < endy)
-                nexts.push_back({node.x, node.y + 1, node.nbObstaclesRemoved + grid[node.x][node.y + 1], 0});
+                    if(dist < distances[x][y]) {
+                        distances[x][y] = dist;
 
-            for(Node n: nexts) {
-                n.score = nodeScore(n);
-                queue.push(n);
+                        if(grid[x][y] == 1)
+                            queue.push_back({x, y});
+                        else
+                            queue.push_front({x, y});
+                    }
+                }
             }
         }
 
-        return bestObstaclesRemoved;
-    }
-
-    int nodeScore(Node& node) {
-        return node.nbObstaclesRemoved * -1;
+        return distances[m - 1][n - 1];
     }
 };
