@@ -1,6 +1,7 @@
 # cpp-learning
 
 ### Leetcode
+- [29/11/24 - Minimum Time to Visit a Cell In a Grid](./Leetcode/29-11-24/)
 - [28/11/24 - Minimum Obstacle Removal to Reach Corner](./Leetcode/28-11-24/)
 - [27/11/24 - Shortest Distance After Road Addition Queries I](./Leetcode/27-11-24/)
 - [26/11/24 - Find Champion II](./Leetcode/26-11-24/)
