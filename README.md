@@ -1,6 +1,7 @@
 # cpp-learning
 
 ### Leetcode
+- [30/11/24 - Valid Arrangement of Pairs](./Leetcode/30-11-24/)
 - [29/11/24 - Minimum Time to Visit a Cell In a Grid](./Leetcode/29-11-24/)
 - [28/11/24 - Minimum Obstacle Removal to Reach Corner](./Leetcode/28-11-24/)
 - [27/11/24 - Shortest Distance After Road Addition Queries I](./Leetcode/27-11-24/)
