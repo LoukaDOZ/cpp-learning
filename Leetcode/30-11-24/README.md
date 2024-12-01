@@ -26,9 +26,9 @@ Note: The inputs will be generated such that there exists a valid arrangement of
 
 # Constraints
 
-- `1 <= pairs.length <= 105`
+- `1 <= pairs.length <= 10^5`
 - `pairs[i].length == 2`
-- `0 <= starti, endi <= 109`
+- `0 <= starti, endi <= 10^9`
 - `starti != endi`
 - No two pairs are exactly the same.
 - There exists a valid arrangement of pairs.
