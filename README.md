@@ -1,6 +1,7 @@
 # cpp-learning
 
 ### Leetcode
+- [02/12/24 - Check If a Word Occurs As a Prefix of Any Word in a Sentence](./Leetcode/02-12-24/)
 - [01/12/24 - Check If N and Its Double Exist](./Leetcode/01-12-24/)
 - [30/11/24 - Valid Arrangement of Pairs](./Leetcode/30-11-24/)
 - [29/11/24 - Minimum Time to Visit a Cell In a Grid](./Leetcode/29-11-24/)
