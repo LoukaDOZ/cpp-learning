@@ -4,6 +4,7 @@
 - [2024](./aoc/2024/)
 
 ### Leetcode
+- [03/12/24 - Adding Spaces to a String](./Leetcode/03-12-24/)
 - [02/12/24 - Check If a Word Occurs As a Prefix of Any Word in a Sentence](./Leetcode/02-12-24/)
 - [01/12/24 - Check If N and Its Double Exist](./Leetcode/01-12-24/)
 - [30/11/24 - Valid Arrangement of Pairs](./Leetcode/30-11-24/)
