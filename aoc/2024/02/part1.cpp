@@ -6,7 +6,7 @@
 using namespace std;
 
 int main() {
-    ifstream stream("inputs/reports");
+    ifstream stream("inputs/input");
     long totalSafe = 0;
     string report;
 

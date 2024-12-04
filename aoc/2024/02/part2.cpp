@@ -31,7 +31,7 @@ int check(vector<int>& report, int ignore = -1) {
 }
 
 int main() {
-    ifstream stream("inputs/reports");
+    ifstream stream("inputs/input");
     long totalSafe = 0;
     string report;
 

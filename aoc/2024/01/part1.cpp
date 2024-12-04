@@ -6,7 +6,7 @@
 using namespace std;
 
 int main() {
-    ifstream stream("inputs/locations");
+    ifstream stream("inputs/input");
     priority_queue<int> list1, list2;
     long totalDistance = 0;
     int id;

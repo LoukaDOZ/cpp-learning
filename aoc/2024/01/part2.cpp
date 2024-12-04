@@ -7,7 +7,7 @@
 using namespace std;
 
 int main() {
-    ifstream stream("inputs/locations");
+    ifstream stream("inputs/input");
     unordered_map<int, int> counts;
     vector<int> list2;
     long totalSimilarity = 0;

@@ -68,7 +68,7 @@ bool isDont(ifstream& stream, int* read) {
 }
 
 int main() {
-    ifstream stream("inputs/program");
+    ifstream stream("inputs/input");
     long total = 0;
     int x, y, read;
     bool doMul = true;

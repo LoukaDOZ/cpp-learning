@@ -53,7 +53,7 @@ bool isMul(ifstream& stream, int* x, int* y) {
 }
 
 int main() {
-    ifstream stream("inputs/program");
+    ifstream stream("inputs/input");
     long total = 0;
     int x, y;
 
