@@ -4,6 +4,7 @@
 - [2024](./aoc/2024/)
 
 ### Leetcode
+- [05/12/24 - Move Pieces to Obtain a String](./Leetcode/05-12-24/)
 - [04/12/24 - Make String a Subsequence Using Cyclic Increments](./Leetcode/04-12-24/)
 - [03/12/24 - Adding Spaces to a String](./Leetcode/03-12-24/)
 - [02/12/24 - Check If a Word Occurs As a Prefix of Any Word in a Sentence](./Leetcode/02-12-24/)
