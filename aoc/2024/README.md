@@ -7,3 +7,4 @@ https://adventofcode.com/2024
 - [Day 03: Mull It Over](./03/)
 - [Day 04: Ceres Search](./04/)
 - [Day 05: Print Queue](./05/)
+- [Day 06: Guard Gallivant](./06/)
