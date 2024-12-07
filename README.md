@@ -4,6 +4,7 @@
 - [2024](./aoc/2024/)
 
 ### Leetcode
+- [07/12/24 - Minimum Limit of Balls in a Bag](./Leetcode/07-12-24/)
 - [06/12/24 - Maximum Number of Integers to Choose From a Range I](./Leetcode/06-12-24/)
 - [05/12/24 - Move Pieces to Obtain a String](./Leetcode/05-12-24/)
 - [04/12/24 - Make String a Subsequence Using Cyclic Increments](./Leetcode/04-12-24/)
