@@ -8,3 +8,5 @@ https://adventofcode.com/2024
 - [Day 04: Ceres Search](./04/)
 - [Day 05: Print Queue](./05/)
 - [Day 06: Guard Gallivant](./06/)
+- [Day 07: Bridge Repair](./07/)
+- [Day 08: Resonant Collinearity](./08/)
