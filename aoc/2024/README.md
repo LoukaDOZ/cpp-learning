@@ -10,3 +10,4 @@ https://adventofcode.com/2024
 - [Day 06: Guard Gallivant](./06/)
 - [Day 07: Bridge Repair](./07/)
 - [Day 08: Resonant Collinearity](./08/)
+- [Day 09: Disk Fragmenter](./09/)
