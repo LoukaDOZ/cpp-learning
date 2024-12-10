@@ -59,12 +59,20 @@ struct Map
     unordered_set<Pos, PosHash> obstacles;
 };
 
-Map readInput(string file) {
+Map readInput(string file)
+{
     ifstream stream(file);
     Map map;
     int x = 0, y = 0;
 
-    while(true) {
+    if(!stream)
+    {
+        cerr << "Failed to open input file" << endl;
+        return map;
+    }
+
+    while(true)
+    {
         string line;
 
         getline(stream, line);
@@ -75,10 +83,12 @@ Map readInput(string file) {
         char c;
         y = 0;
 
-        while(sstream >> c) {
+        while(sstream >> c)
+        {
             if(c == '#')
                 map.obstacles.insert({x,y});
-            else if(c == '^') {
+            else if(c == '^')
+            {
                 map.guardPos = {x, y};
                 map.guardDir = UP;
             }
@@ -95,42 +105,23 @@ Map readInput(string file) {
     return map;
 }
 
-void debugMap(Map map, unordered_set<DirectedPos, DirectedPosHash> path) {
-    cout << map.n << ' ' << map.m << endl;
-    for(int i = 0; i < map.n; i++) {
-        for(int j = 0; j < map.m; j++) {
-            if(path.count({i,j,UP}))
-                cout << '^';
-            else if(path.count({i,j,DOWN}))
-                cout << 'v';
-            else if(path.count({i,j,LEFT}))
-                cout << '<';
-            else if(path.count({i,j,RIGHT}))
-                cout << '>';
-            else if(map.obstacles.count({i,j}))
-                cout << "#";
-            else if(map.guardPos.x == i && map.guardPos.y == j)
-                cout << "^";
-            else
-                cout << ".";
-        }
-        cout << endl;
-    }
-}
-
-bool isInBounds(Map map, Pos pos) {
+bool isInBounds(Map map, Pos pos)
+{
     return pos.x >= 0 && pos.x < map.n && pos.y >= 0 && pos.y < map.m;
 }
 
-int rotate90(Dir dir) {
+int rotate90(Dir dir)
+{
     if(dir == LEFT)
         return UP;
     
     return dir + 1;
 }
 
-Pos move(Pos pos, Dir dir) {
-    switch(dir) {
+Pos move(Pos pos, Dir dir)
+{
+    switch(dir)
+    {
         case UP:
             return {pos.x - 1, pos.y};
         case DOWN:
@@ -143,18 +134,21 @@ Pos move(Pos pos, Dir dir) {
     }
 }
 
-unordered_set<Pos, PosHash> patrol(Map map) {
-    unordered_set<Pos, PosHash> path;
+vector<DirectedPos> patrol(Map map)
+{
+    vector<DirectedPos> path;
     Pos pos = map.guardPos;
     Dir dir = map.guardDir;
 
-    while(isInBounds(map, pos)) {
+    while(isInBounds(map, pos))
+    {
         Pos nextPos = pos;
         Dir nextDir = dir;
-        path.insert(pos);
+        path.push_back({pos.x, pos.y, dir});
 
         nextPos = move(nextPos, nextDir);
-        while(map.obstacles.count(nextPos)) {
+        while(map.obstacles.count(nextPos))
+        {
             nextDir = rotate90(nextDir);
             nextPos = move(pos, nextDir);
         }
@@ -166,47 +160,54 @@ unordered_set<Pos, PosHash> patrol(Map map) {
     return path;
 }
 
-int part1(string input) {
+int run(string input)
+{
     Map map = readInput(input);
-    return patrol(map).size();
-}
-
-int part2(string input) {
-    Map map = readInput(input);
-    unordered_set<Pos, PosHash> path = patrol(map);
-    path.erase(map.guardPos);
+    vector<DirectedPos> path = patrol(map);
+    unordered_set<Pos, PosHash> ignoredObstacles;
     int count = 0;
-    int i = 0;
 
-    for(Pos pathPos: path) {
-        Map mapCpy = map;
-        mapCpy.obstacles.insert(pathPos);
+    ignoredObstacles.insert(map.guardPos);
+
+    for(int i = 1; i < path.size(); i++)
+    {
+        Pos pathPos = {path[i].x, path[i].y};
+
+        if(!ignoredObstacles.insert(pathPos).second)
+            continue;
 
         // Patrol again but with loop detection
-        unordered_set<DirectedPos, DirectedPosHash> newPath;
-        Pos pos = mapCpy.guardPos;
-        Dir dir = mapCpy.guardDir;
+        unordered_set<DirectedPos, DirectedPosHash> newPath(path.begin(), path.begin() + i - 1);
+        Map mapCpy = map;
+        DirectedPos dirPos = path[i - 1];
 
-        while(isInBounds(mapCpy, pos)) {
-            Pos nextPos = pos;
-            Dir nextDir = dir;
+        mapCpy.obstacles.insert(pathPos);
 
-            DirectedPos nextDirPos = {pos.x, pos.y, dir};
-            if(!newPath.insert(nextDirPos).second) {
+        while(true)
+        {
+            Pos pos = {dirPos.x, dirPos.y};
+            
+            if(!isInBounds(mapCpy, pos))
+                break;
+
+            if(!newPath.insert(dirPos).second)
+            {
                 count++;
                 break;
             }
 
-            nextPos = move(nextPos, nextDir);
-            while(mapCpy.obstacles.count(nextPos)) {
+            Dir nextDir = dirPos.dir;
+            Pos nextPos = move(pos, nextDir);
+            while(mapCpy.obstacles.count(nextPos))
+            {
                 nextDir = rotate90(nextDir);
                 nextPos = move(pos, nextDir);
             }
 
-            pos = nextPos;
-            dir = nextDir;
+            dirPos.x = nextPos.x;
+            dirPos.y = nextPos.y;
+            dirPos.dir = nextDir;
         }
-        i++;
     }
 
     return count;
@@ -214,14 +215,10 @@ int part2(string input) {
 
 int main()
 {
-    cout << "----- PART 1 -----" << endl;
-    cout << "Example: " << part1("inputs/example") << endl;
-    cout << "Input:\t " << part1("inputs/input") << endl;
-
-    cout << endl << "----- PART 2 -----" << endl;
-    cout << "Example: " << part2("inputs/example") << endl;
-    cout << "(Go make yourself a warm hot chocolate cause this is gonna take a while)" << endl;
-    cout << "Input:\t " << part2("inputs/input") << endl;
+    cout << "----- PART 2 -----" << endl;
+    cout << "Example: " << run("inputs/example") << endl;
+    cout << "(Go grab yourself a warm hot chocolate 'cause this is gonna take a while)" << endl;
+    cout << "Input:\t " << run("inputs/input") << endl;
 
     return 0;
 }

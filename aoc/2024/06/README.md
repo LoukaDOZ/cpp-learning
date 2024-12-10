@@ -108,7 +108,9 @@ In this example, the guard will visit 41 distinct positions on your map.
 Predict the path of the guard. **How many distinct positions will the guard visit before leaving the mapped area?**
 
 ```
-Result : 4602
+----- PART 1 -----
+Example: 41
+Input:   4602
 ```
 
 ### --- Part Two ---
@@ -218,5 +220,7 @@ It doesn't really matter what you choose to use as an obstacle so long as you an
 You need to get the guard stuck in a loop by adding a single new obstruction. **How many different positions could you choose for this obstruction?**
 
 ```
-Result : 
+----- PART 2 -----
+Example: 6
+Input:   1703
 ```
