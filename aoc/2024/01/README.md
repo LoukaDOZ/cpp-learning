@@ -41,7 +41,9 @@ To find the total distance between the left list and the right list, add up the 
 Your actual left and right lists contain many location IDs. **What is the total distance between your lists?**
 
 ```
-Distance: 1341714
+----- PART 1 -----
+Example: 11
+Input:   1341714
 ```
 
 ### --- Part Two ---
@@ -78,5 +80,7 @@ So, for these example lists, the similarity score at the end of this process is 
 Once again consider your left and right lists. **What is their similarity score?**
 
 ```
-Similarity: 27384707
+----- PART 2 -----
+Example: 31
+Input:   27384707
 ```

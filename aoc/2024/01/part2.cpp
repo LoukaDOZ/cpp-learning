@@ -6,37 +6,58 @@
 
 using namespace std;
 
-int main() {
-    ifstream stream("inputs/input");
-    unordered_map<int, int> counts;
-    vector<int> list2;
-    long totalSimilarity = 0;
+vector<vector<int>> readInput(string file)
+{
+    ifstream stream(file);
+    vector<int> list1, list2;
     int id;
 
-    if(!stream) {
+    if(!stream)
+    {
         cerr << "Failed to open input file" << endl;
-        return 1;
+        return {};
     }
 
-    while(!stream.eof()) {
+    while(!stream.eof())
+    {
         stream >> id;
-        counts[id] = 0;
+        list1.push_back(id);
 
         stream >> id;
         list2.push_back(id);
     }
 
     stream.close();
+    return {list1, list2};
+}
 
-    for(int i: list2) {
+long run(string file)
+{
+    vector<vector<int>> lists = readInput(file);
+    vector<int>& list1 = lists[0];
+    vector<int>& list2 = lists[1];
+    unordered_map<int, int> counts;
+    int similarity = 0;
+
+    for(int i: list2)
+    {
         if(counts.find(i) != counts.end())
             counts[i]++;
+        else
+            counts[i] = 1;
     }
 
-    for(pair<int, int> count: counts) {
-        totalSimilarity += count.first * count.second;
-    }
+    for(int i: list1)
+        similarity += i * counts[i];
 
-    cout << "Similarity: " << totalSimilarity << endl;
+    return similarity;
+}
+
+int main()
+{
+    cout << "----- PART 2 -----" << endl;
+    cout << "Example: " << run("inputs/example") << endl;
+    cout << "Input:\t " << run("inputs/input") << endl;
+
     return 0;
 }
