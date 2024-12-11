@@ -1,5 +1,6 @@
 # Leetcode
 
+- [11/12/24 - Maximum Beauty of an Array After Applying Operation](./11-12-24/)
 - [10/12/24 - Find Longest Special Substring That Occurs Thrice I](./10-12-24/)
 - [09/12/24 - Special Array II](./09-12-24/)
 - [08/12/24 - Two Best Non-Overlapping Events](./08-12-24/)
