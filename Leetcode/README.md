@@ -1,5 +1,6 @@
 # Leetcode
 
+- [15/12/24 - Maximum Average Pass Ratio](./15-12-24/)
 - [14/12/24 - Continuous Subarrays](./14-12-24/)
 - [13/12/24 - Find Score of an Array After Marking All Elements](./13-12-24/)
 - [12/12/24 - Take Gifts From the Richest Pile](./12-12-24/)
