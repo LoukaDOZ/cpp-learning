@@ -1,0 +1,24 @@
+# 2182. Construct String With Repeat Limit
+
+You are given a string `s` and an integer `repeatLimit`. Construct a new string `repeatLimitedString` using the characters of `s` such that no letter appears more than `repeatLimit` times in a row. You do not have to use all characters from `s`.
+
+Return the lexicographically largest `repeatLimitedString` possible.
+
+A string `a` is lexicographically larger than a string `b` if in the first position where `a` and `b` differ, string `a` has a letter that appears later in the alphabet than the corresponding letter in `b`. If the first `min(a.length, b.length)` characters do not differ, then the longer string is the lexicographically larger one.
+
+# Example 1
+
+| input                            | Output      | Explanation                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+|----------------------------------|-------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `s = "cczazcc", repeatLimit = 3` | `"zzcccac"` | <ul><li>We use all of the characters from s to construct the repeatLimitedString "zzcccac".</li><li>The letter 'a' appears at most 1 time in a row.</li><li>The letter 'c' appears at most 3 times in a row.</li><li>The letter 'z' appears at most 2 times in a row.</li><li>Hence, no letter appears more than repeatLimit times in a row and the string is a valid repeatLimitedString.</li><li>The string is the lexicographically largest repeatLimitedString possible so we return "zzcccac".</li><li>Note that the string "zzcccca" is lexicographically larger but the letter 'c' appears more than 3 times in a row, so it is not a valid repeatLimitedString.</li></ul> |
+
+# Example 2
+
+| input                            | Output     | Explanation                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+|----------------------------------|------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `s = "aababab", repeatLimit = 2` | `"bbabaa"` | <ul><li>We use only some of the characters from s to construct the repeatLimitedString "bbabaa".</li><li>The letter 'a' appears at most 2 times in a row.</li><li>The letter 'b' appears at most 2 times in a row.</li><li>Hence, no letter appears more than repeatLimit times in a row and the string is a valid repeatLimitedString.</li><li>The string is the lexicographically largest repeatLimitedString possible so we return "bbabaa".</li><li>Note that the string "bbabaaa" is lexicographically larger but the letter 'a' appears more than 2 times in a row, so it is not a valid repeatLimitedString.</li></ul> |
+
+# Constraints
+
+- `1 <= repeatLimit <= s.length <= 10^5`
+- `s` consists of lowercase English letters.
