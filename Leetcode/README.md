@@ -1,5 +1,6 @@
 # Leetcode
 
+- [18/12/24 - Final Prices With a Special Discount in a Shop](./18-12-24/)
 - [17/12/24 - Construct String With Repeat Limit](./17-12-24/)
 - [16/12/24 - Final Array State After K Multiplication Operations I](./16-12-24/)
 - [15/12/24 - Maximum Average Pass Ratio](./15-12-24/)
