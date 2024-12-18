@@ -14,3 +14,4 @@ https://adventofcode.com/2024
 - [Day 10: Hoof It](./10/)
 - [Day 11: Plutonian Pebbles](./11/)
 - [Day 12: Garden Groups](./12/)
+- [Day 14: Restroom Redoubt](./14/)
