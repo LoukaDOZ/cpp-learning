@@ -1,5 +1,6 @@
 # Leetcode
 
+- [19/12/24 - Max Chunks To Make Sorted](./19-12-24/)
 - [18/12/24 - Final Prices With a Special Discount in a Shop](./18-12-24/)
 - [17/12/24 - Construct String With Repeat Limit](./17-12-24/)
 - [16/12/24 - Final Array State After K Multiplication Operations I](./16-12-24/)
