@@ -141,7 +141,7 @@ long run(string file, pos_t space)
 {
     vector<robot_t> robots = readInput(file);
     vector<vector<int>> grid(space.y, vector<int>(space.x, 0));
-    int seconds = 0;
+    int seconds = 1;
 
     for(robot_t& robot: robots)
         grid[robot.pos.y][robot.pos.x] += 1;
