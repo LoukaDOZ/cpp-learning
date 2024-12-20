@@ -15,3 +15,4 @@ https://adventofcode.com/2024
 - [Day 11: Plutonian Pebbles](./11/)
 - [Day 12: Garden Groups](./12/)
 - [Day 14: Restroom Redoubt](./14/)
+- [Day 15: Warehouse Woes](./15/)
