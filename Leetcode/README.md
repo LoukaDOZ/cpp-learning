@@ -2,6 +2,7 @@
 
 - [27/12/2024 - Best Sightseeing Pair](./2024/12/27/)
 - [26/12/2024 - Target Sum](./2024/12/26/)
+- [24/12/2024 - Find Minimum Diameter After Merging Two Trees](./2024/12/24/)
 - [23/12/2024 - Minimum Number of Operations to Sort a Binary Tree by Level](./2024/12/23/)
 - [22/12/2024 - Find Building Where Alice and Bob Can Meet](./2024/12/22/)
 - [21/12/2024 - Maximum Number of K-Divisible Components](./2024/12/21/)
