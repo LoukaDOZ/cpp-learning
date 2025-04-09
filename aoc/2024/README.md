@@ -17,3 +17,4 @@ https://adventofcode.com/2024
 - [Day 14: Restroom Redoubt](./14/)
 - [Day 15: Warehouse Woes](./15/)
 - [Day 16: Reindeer Maze](./16/)
+- [Day 17: Chronospatial Computer](./17/)
