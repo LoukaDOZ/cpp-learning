@@ -154,4 +154,8 @@ In the second example, there are 64 tiles that are part of at least one of the b
 Analyze your map further. How many tiles are part of at least one of the best paths through the maze?
 
 ```
+----- PART 2 -----
+Example: 45
+Example2: 64
+Input:   492
 ```
