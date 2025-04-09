@@ -1,7 +1,6 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <unordered_set>
 #include <queue>
 
 #define CHAR_START 'S'
@@ -23,19 +22,6 @@ struct dir_pos_t
 {
     pos_t pos;
     int dir;
-
-    bool operator==(const dir_pos_t &other) const
-    {
-        return pos.x == other.pos.x && pos.y == other.pos.y && dir == other.dir;
-    }
-};
-
-struct DirPosHash
-{
-    size_t operator()(const dir_pos_t& p) const noexcept
-    {
-        return hash<int>{}(p.pos.x) ^ hash<int>{}(p.pos.y) ^ hash<int>{}(p.dir);
-    }
 };
 
 struct map_t
@@ -114,7 +100,6 @@ long bestScore(map_t& map)
     vector<vector<long>> scores(map.size.y, vector<long>(map.size.x, -1));
     queue<pair<dir_pos_t, long>> queue;
     queue.push({{{map.start.x, map.start.y}, 1}, 0});
-    int i = 0;
 
     while(!queue.empty())
     {
@@ -142,7 +127,6 @@ long bestScore(map_t& map)
             if(map.isReachable(next_pos.pos))
                 queue.push({next_pos, next_score});
         }
-        i += 1;
     }
 
     return scores[map.end.y][map.end.x];
