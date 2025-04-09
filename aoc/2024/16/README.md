@@ -92,7 +92,7 @@ In this maze, the best paths cost 11048 points; following one such path would lo
 
 Note that the path shown above includes one 90 degree turn as the very first move, rotating the Reindeer from facing East to facing North.
 
-Analyze your map carefully. What is the lowest score a Reindeer could possibly get?
+Analyze your map carefully. **What is the lowest score a Reindeer could possibly get?**
 
 ```
 ----- PART 1 -----
@@ -151,7 +151,7 @@ In the second example, there are 64 tiles that are part of at least one of the b
 #################
 ```
 
-Analyze your map further. How many tiles are part of at least one of the best paths through the maze?
+Analyze your map further. **How many tiles are part of at least one of the best paths through the maze?**
 
 ```
 ----- PART 2 -----

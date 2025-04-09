@@ -60,7 +60,7 @@ Program: 0,1,5,4,3,0
 
 Your first task is to determine what the program is trying to output. To do this, initialize the registers to the given values, then run the given program, collecting any output produced by out instructions. (Always join the values produced by out instructions with commas.) After the above program halts, its final output will be 4,6,3,5,6,3,5,2,1,0.
 
-Using the information provided by the debugger, initialize the registers to the given values, then run the program. Once it halts, what do you get if you use commas to join the values it output into a single string?
+Using the information provided by the debugger, initialize the registers to the given values, then run the program. **Once it halts, what do you get if you use commas to join the values it output into a single string?**
 
 
 ```
