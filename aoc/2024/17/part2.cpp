@@ -1,7 +1,6 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <string>
 
 #define R_A 0
 #define R_B 1
@@ -31,28 +30,28 @@
 
 using namespace std;
 
-pair<vector<int>, vector<int>> readInput(string file)
+vector<int> readInput(string file)
 {
     ifstream stream(file);
-    vector<int> registers(NB_REGISTERS, 0);
     vector<int> program;
 
     if(!stream)
     {
         cerr << "Failed to open input file" << endl;
-        return {registers, program};
+        return program;
     }
 
-    stream.ignore(12);
-    stream >> registers[R_A];
-
-    stream.ignore(12);
-    stream >> registers[R_B];
-
-    stream.ignore(12);
-    stream >> registers[R_C];
-
     int v;
+
+    stream.ignore(12);
+    stream >> v;
+
+    stream.ignore(12);
+    stream >> v;
+
+    stream.ignore(12);
+    stream >> v;
+
     stream.ignore(10);
     while(stream >> v)
     {
@@ -61,10 +60,10 @@ pair<vector<int>, vector<int>> readInput(string file)
     }
     
     stream.close();
-    return {registers, program};
+    return program;
 }
 
-int comboOperand(vector<int>& registers, int operand)
+unsigned long comboOperand(vector<unsigned long>& registers, int operand)
 {
     switch(operand)
     {
@@ -88,7 +87,7 @@ int comboOperand(vector<int>& registers, int operand)
     }
 }
 
-pair<int,int> runInstruction(vector<int>& registers, int upcode, int operand)
+pair<int,int> runInstruction(vector<unsigned long>& registers, int upcode, int operand)
 {
     pair<int,int> iReturn {NOT_SET, NOT_SET};
 
@@ -126,36 +125,70 @@ pair<int,int> runInstruction(vector<int>& registers, int upcode, int operand)
     return iReturn;
 }
 
-string run(string file)
+void runProgram(vector<int>& program, vector<int>& output, unsigned long valueRA)
 {
-    pair<vector<int>, vector<int>> input = readInput(file);
-    vector<int> registers = input.first;
-    vector<int> program = input.second;
+    vector<unsigned long> registers(NB_REGISTERS, 0);
+    int i = 0, n = program.size();
 
-    string output = "";
-    int i = 0;
+    registers[R_A] = valueRA;
 
-    while(i + 1 < program.size())
+    while(i + 1 < n)
     {
         pair<int,int> iReturn = runInstruction(registers, program[i], program[i + 1]);
         i = iReturn.second >= 0 ? iReturn.second : i + DEFAULT_JUMP;
 
         if(iReturn.first != NOT_SET)
-        {
-            if(!output.empty())
-                output += ',';
+            output.push_back(iReturn.first);
+    }
+}
 
-            output += to_string(iReturn.first);
+bool arraysEqual(vector<int>& a, vector<int>& b)
+{
+    int n = a.size();
+
+    if(n != b.size())
+        return false;
+
+    for(int i = 0; i < n; i++)
+    {
+        if(a[i] != b[i])
+            return false;
+    }
+
+    return true;
+}
+
+unsigned long run(string file)
+{
+    vector<int> program = readInput(file);
+    unsigned long valueRA = 0;
+    int n = program.size();
+
+    for(int i = 0; i < n; i++)
+    {
+        valueRA <<= 3;
+        vector<int> truncProgram(program.begin() + n - i - 1, program.end());
+        vector<int> output;
+
+        while(true)
+        {
+            output.clear();
+            runProgram(program, output, valueRA);
+
+            if(arraysEqual(truncProgram, output))
+                break;
+
+            valueRA++;
         }
     }
 
-    return output;
+    return valueRA;
 }
 
 int main()
 {
-    cout << "----- PART 1 -----" << endl;
-    cout << "Example: " << run("inputs/example") << endl;
+    cout << "----- PART 2 -----" << endl;
+    cout << "Example: " << run("inputs/example2") << endl;
     cout << "Input:\t " << run("inputs/input") << endl;
     return 0;
 }
