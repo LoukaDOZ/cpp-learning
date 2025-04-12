@@ -69,8 +69,10 @@ class Map
     {
         vector<Coord> starts;
 
-        for(int i = 0; i < m_n; i++) {
-            for(int j = 0; j < m_m; j++) {
+        for(int i = 0; i < m_n; i++)
+        {
+            for(int j = 0; j < m_m; j++)
+            {
                 if(m_map[i][j] == START)
                     starts.push_back({i,j});
             }
@@ -83,7 +85,8 @@ class Map
     {
         vector<Coord> neighbours;
 
-        for(Coord dir: m_directions) {
+        for(Coord dir: m_directions)
+        {
             Coord neighbour = {c.x + dir.x, c.y + dir.y};
 
             if(isInBounds(neighbour) && m_map[neighbour.x][neighbour.y] == m_map[c.x][c.y] + 1)
@@ -133,7 +136,8 @@ int doHikingTrail(Map map, Coord start)
 
     while(true)
     {
-        if(map.isEnd(current)) {
+        if(map.isEnd(current))
+        {
             count++;
             break;
         }
@@ -162,11 +166,18 @@ long run(string file)
     return sum;
 }
 
-int main()
+int main(int argc, char** argv)
 {
-    cout << "----- PART 2 -----" << endl;
-    cout << "Example: " << run("inputs/example") << endl;
-    cout << "Input:\t " << run("inputs/input") << endl;
+    if(argc < 2)
+    {
+        cerr << "Missing input file" << endl;
+        return 1;
+    }
+
+    cout << "----- AOC 2024 DAY 10 : PART 2 -----" << endl;
+
+    for(int i = 1; i < argc; i++)
+        cout << argv[i] << ": " << run(argv[i]) << endl;
 
     return 0;
 }

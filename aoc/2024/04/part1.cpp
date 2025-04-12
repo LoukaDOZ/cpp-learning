@@ -2,71 +2,99 @@
 #include <fstream>
 #include <vector>
 
+#define XMAS_SIZE 4
+
 using namespace std;
 
-int main() {
-    ifstream stream("inputs/input");
-    vector<vector<pair<int,int>>> directions = {
-        {{0,0}, {0,1}, {0,2}, {0,3}},
-        {{0,0}, {0,-1}, {0,-2}, {0,-3}},
-        {{0,0}, {1,0}, {2,0}, {3,0}},
-        {{0,0}, {-1,0}, {-2,0}, {-3,0}},
-        {{0,0}, {1,1}, {2,2}, {3,3}},
-        {{0,0}, {1,-1}, {2,-2}, {3,-3}},
-        {{0,0}, {-1,1}, {-2,2}, {-3,3}},
-        {{0,0}, {-1,-1}, {-2,-2}, {-3,-3}}
-    };
-    char XMAS[4] = {'X', 'M', 'A', 'S'};
+const vector<pair<int,int>> DIRECTIONS = {{0,1}, {0,-1}, {1,0}, {-1,0}, {1,1}, {1,-1}, {-1,1}, {-1,-1}};
+const char XMAS[XMAS_SIZE] = {'X', 'M', 'A', 'S'};
 
+vector<vector<char>> readInput(string file)
+{
+    ifstream stream(file);
     vector<vector<char>> grid;
     vector<char> row;
-    long count = 0;
-    int n, m;
     char c;
 
-    if(!stream) {
+    if(!stream)
+    {
         cerr << "Failed to open input file" << endl;
-        return 1;
+        return grid;
     }
 
-    while(true) {
+    while(true)
+    {
         stream.get(c);
 
         if(stream.eof())
             break;
-        else if(c == '\n') {
+
+        if(c == '\n')
+        {
             grid.push_back(row);
             row.clear();
-        } else
+        }
+        else
             row.push_back(c);
+        
     }
 
+    if(!row.empty())
+        grid.push_back(row);
+
     stream.close();
-    n = grid.size();
-    m = grid[0].size(); 
+    return grid;
+}
 
-    for(int y = 0; y < n; y++) {
-        for(int x = 0; x < m; x++) {
-            for(vector<pair<int,int>> direction: directions) {
-                bool ok = true;
+bool hasXMAS(vector<vector<char>>& grid, int x, int y, pair<int,int>& dir)
+{
+    int n = grid.size(), m = grid[0].size();
 
-                for(int i = 0; i < 4; i++) {
-                    pair<int,int> dir = direction[i];
-                    int px = x + dir.first;
-                    int py = y + dir.second;
+    for(int i = 0; i < XMAS_SIZE; i++)
+    {
+        if(x < 0 || y >= m || y < 0 || y >= n || grid[y][x] != XMAS[i])
+            return false;
 
-                    if(px < 0 || px >= m || py < 0 || py >= n || grid[py][px] != XMAS[i]) {
-                        ok = false;
-                        break;
-                    }
-                }
+        x += dir.first;
+        y += dir.second;
+    }
 
-                if(ok)
+    return true;
+}
+
+long run(string file)
+{
+    vector<vector<char>> grid = readInput(file);
+    long count = 0;
+    int n = grid.size(), m = grid[0].size();
+
+    for(int y = 0; y < n; y++)
+    {
+        for(int x = 0; x < m; x++)
+        {
+            for(pair<int,int> dir: DIRECTIONS)
+            {
+                if(hasXMAS(grid, x, y, dir))
                     count++;
             }
         }
     }
 
-    cout << "XMAS appears " << count << " times" << endl;
+    return count;
+}
+
+int main(int argc, char** argv)
+{
+    if(argc < 2)
+    {
+        cerr << "Missing input file" << endl;
+        return 1;
+    }
+
+    cout << "----- AOC 2024 DAY 04 : PART 1 -----" << endl;
+
+    for(int i = 1; i < argc; i++)
+        cout << argv[i] << ": " << run(argv[i]) << endl;
+
     return 0;
 }

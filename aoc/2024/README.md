@@ -18,3 +18,20 @@ https://adventofcode.com/2024
 - [Day 15: Warehouse Woes](./15/)
 - [Day 16: Reindeer Maze](./16/)
 - [Day 17: Chronospatial Computer](./17/)
+
+## Usage
+
+Go to requested day :
+```
+cd <day>/
+```
+
+Part 1 :
+```
+c++ part1.cpp && ./a.out <file1 file2 ...>
+```
+
+Part 2 :
+```
+c++ part2.cpp && ./a.out <file1 file2 ...>
+```

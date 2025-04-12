@@ -20,11 +20,11 @@ vector<vector<int>> readInput(string file)
 
     while(!stream.eof())
     {
-        stream >> id;
-        list1.push_back(id);
+        if(stream >> id)
+            list1.push_back(id);
 
-        stream >> id;
-        list2.push_back(id);
+        if(stream >> id)
+            list2.push_back(id);
     }
 
     stream.close();
@@ -53,11 +53,18 @@ long run(string file)
     return similarity;
 }
 
-int main()
+int main(int argc, char** argv)
 {
-    cout << "----- PART 2 -----" << endl;
-    cout << "Example: " << run("inputs/example") << endl;
-    cout << "Input:\t " << run("inputs/input") << endl;
+    if(argc < 2)
+    {
+        cerr << "Missing input file" << endl;
+        return 1;
+    }
+
+    cout << "----- AOC 2024 DAY 01 : PART 2 -----" << endl;
+
+    for(int i = 1; i < argc; i++)
+        cout << argv[i] << ": " << run(argv[i]) << endl;
 
     return 0;
 }

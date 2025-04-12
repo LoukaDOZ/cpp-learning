@@ -7,18 +7,22 @@
 
 using namespace std;
 
-int main() {
-    ifstream stream("inputs/input");
+pair<unordered_map<int, vector<int>>, vector<vector<int>>> readInput(string file)
+{
+    ifstream stream(file);
     unordered_map<int, vector<int>> graph;
-    long middleSum = 0;
+    vector<vector<int>> pagesList;
     string line;
 
-    if(!stream) {
+    if(!stream)
+    {
         cerr << "Failed to open input file" << endl;
-        return 1;
+        return {graph, pagesList};
     }
 
-    while(true) {
+    // Page ordering rules
+    while(true)
+    {
         getline(stream, line);
 
         if(line.empty())
@@ -33,40 +37,78 @@ int main() {
         graph[page].push_back(nextPage);
     }
 
-    while(true) {
+    // Page numbers of each update
+    while(!stream.eof())
+    {
         getline(stream, line);
 
-        if(stream.eof())
-            break;
+        if(line.empty())
+            continue;
 
         stringstream lineStream(line);
         vector<int> pages;
         int page;
-        bool ok = true;
 
-        while(!lineStream.eof()) {
+        while(!lineStream.eof())
+        {
             lineStream >> page;
             lineStream.ignore(1, ',');
             pages.push_back(page);
         }
-
-        for(int i = 1; i < pages.size(); i++) {
-            vector<int> nextPages = graph[pages[i]];
-
-            for(int j = 0; j < i; j++) {
-                if(find(nextPages.begin(), nextPages.end(), pages[j]) != nextPages.end()) {
-                    ok = false;
-                    break;
-                }
-            }
-        }
-
-        if(ok)
-            middleSum += pages[pages.size() / 2];
+        
+        pagesList.push_back(pages);
     }
 
     stream.close();
+    return {graph, pagesList};
+}
 
-    cout << "Result : " << middleSum << endl;
+bool isValid(unordered_map<int, vector<int>>& graph, vector<int>& pages)
+{
+    int n = pages.size();
+
+    for(int i = 1; i < n; i++)
+    {
+        vector<int>& nextPages = graph[pages[i]];
+
+        for(int j = 0; j < i; j++)
+        {
+            if(find(nextPages.begin(), nextPages.end(), pages[j]) != nextPages.end())
+                return false;
+        }
+    }
+
+    return true;
+}
+
+long run(string file)
+{
+    pair<unordered_map<int, vector<int>>, vector<vector<int>>> input = readInput(file);
+    unordered_map<int, vector<int>> graph = input.first;
+    vector<vector<int>> pagesList = input.second;
+    long middleSum = 0;
+
+    for(vector<int>& pages : pagesList)
+    {
+        if(isValid(graph, pages))
+            middleSum += pages[pages.size() / 2];
+    }
+
+    return middleSum;
+}
+
+int main(int argc, char** argv)
+{
+    if(argc < 2)
+    {
+        cerr << "Missing input file" << endl;
+        return 1;
+    }
+
+    cout << "----- AOC 2024 DAY 05 : PART 1 -----" << endl;
+
+    for(int i = 1; i < argc; i++)
+        cout << argv[i] << ": " << run(argv[i]) << endl;
+
     return 0;
 }

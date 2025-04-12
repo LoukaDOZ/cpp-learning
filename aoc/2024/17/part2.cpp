@@ -185,10 +185,18 @@ unsigned long run(string file)
     return valueRA;
 }
 
-int main()
+int main(int argc, char** argv)
 {
-    cout << "----- PART 2 -----" << endl;
-    cout << "Example: " << run("inputs/example2") << endl;
-    cout << "Input:\t " << run("inputs/input") << endl;
+    if(argc < 2)
+    {
+        cerr << "Missing input file" << endl;
+        return 1;
+    }
+
+    cout << "----- AOC 2024 DAY 17 : PART 2 -----" << endl;
+
+    for(int i = 1; i < argc; i++)
+        cout << argv[i] << ": " << run(argv[i]) << endl;
+
     return 0;
 }

@@ -6,10 +6,6 @@
 #include <limits>
 
 #define MOVE_N_TIMES 100
-#define EXAMPLE_SPACE_X 11
-#define EXAMPLE_SPACE_Y 7
-#define INPUT_SPACE_X 101
-#define INPUT_SPACE_Y 103
 
 using namespace std;
 
@@ -114,10 +110,35 @@ long run(string file, pos_t space)
         * countRobots(robots, {space.x - halfX, space.y - halfY}, space);
 }
 
-int main()
+pos_t askSpace(string filename)
 {
-    cout << "----- PART 1 -----" << endl;
-    cout << "Example: " << run("inputs/example", {EXAMPLE_SPACE_X, EXAMPLE_SPACE_Y}) << endl;
-    cout << "Input:\t " << run("inputs/input", {INPUT_SPACE_X, INPUT_SPACE_Y}) << endl;
+    pos_t space = {-1, -1};
+
+    while(space.x < 0 || space.y < 0)
+    {
+        cout << '[' << filename << "] Enter puzzle space as \"<x> <y>\" :" << endl;
+        cin >> space.x;
+        cin >> space.y;
+    }
+
+    return space;
+}
+
+int main(int argc, char** argv)
+{
+    if(argc < 2)
+    {
+        cerr << "Missing input file" << endl;
+        return 1;
+    }
+
+    cout << "----- AOC 2024 DAY 14 : PART 1 -----" << endl;
+
+    for(int i = 1; i < argc; i++)
+    {
+        pos_t space = askSpace(argv[i]);
+        cout << argv[i] << ": " << run(argv[i], space) << endl;
+    }
+
     return 0;
 }

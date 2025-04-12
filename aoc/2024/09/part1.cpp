@@ -37,7 +37,8 @@ vector<int> readInput(string file)
     return diskMap;
 }
 
-void compact(vector<int>& diskMap) {
+void compact(vector<int>& diskMap)
+{
     int freeSpaceI = 0, fileI = diskMap.size() - 1;
 
     while(true)
@@ -54,7 +55,8 @@ void compact(vector<int>& diskMap) {
     }
 }
 
-long checksum(vector<int>& diskMap) {
+long checksum(vector<int>& diskMap)
+{
     long sum = 0;
     for(int i = 0; i < diskMap.size(); i++)
     {
@@ -74,11 +76,18 @@ long run(string file)
     return checksum(diskMap);
 }
 
-int main()
+int main(int argc, char** argv)
 {
-    cout << "----- PART 1 -----" << endl;
-    cout << "Example: " << run("inputs/example") << endl;
-    cout << "Input:\t " << run("inputs/input") << endl;
+    if(argc < 2)
+    {
+        cerr << "Missing input file" << endl;
+        return 1;
+    }
+
+    cout << "----- AOC 2024 DAY 09 : PART 1 -----" << endl;
+
+    for(int i = 1; i < argc; i++)
+        cout << argv[i] << ": " << run(argv[i]) << endl;
 
     return 0;
 }

@@ -1,106 +1,204 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <cmath>
+
+#define CHAR_COMMA ','
+#define CHAR_L_PARENTHESIS '('
+#define CHAR_R_PARENTHESIS ')'
+#define STR_MUL_LEN 3
+#define STR_DO_LEN 2
+#define STR_DONT_LEN 5
+#define CHAR_0_CODE 48
+#define CHAR_9_CODE 57
 
 using namespace std;
 
-void back(ifstream& stream, int to) {
-    stream.seekg(-to, ios::cur);
+const char STR_MUL[] = {'m', 'u', 'l'};
+const char STR_DO[] = {'d', 'o'};
+const char STR_DONT[] = {'d', 'o', 'n', '\'', 't'};
+
+string readInput(string file)
+{
+    ifstream stream(file);
+    string instructions, line;
+
+    if(!stream)
+    {
+        cerr << "Failed to open input file" << endl;
+        return instructions;
+    }
+
+    while(!stream.eof())
+    {
+        getline(stream, line);
+        instructions += line;
+    }
+
+    stream.close();
+    return instructions;
 }
 
-char get(ifstream& stream) {
-    char c;
-    stream.get(c);
-    return c;
+bool isChar(string& instructions, int* pointer, char c)
+{
+    return instructions.at((*pointer)++) == c;
 }
 
-bool isChar(ifstream& stream, char c) {
-    return get(stream) == c;
-}
-
-bool isStr(ifstream& stream, string str, int* read = NULL) {    
-    for(int i = 0; i < str.length(); i++) {
-        if(!isChar(stream, str.at(i))) {
-            if(read != NULL)
-                *read = i + 1;
+bool isStr(string& instructions, int* pointer, string str)
+{    
+    for(int i = 0; i < str.length(); i++)
+    {
+        if(!isChar(instructions, pointer, str.at(i)))
             return false;
-        }
     }
 
     return true;
 }
 
-bool isInt(ifstream& stream, int* dest) {
-    char c;
-    vector<int> ints;
+bool getInt(string& instructions, int* pointer, int* dest)
+{
+    int n = instructions.size();
+    int value = 0;
+    bool ok = false;
 
-    for(int i = 0; i < 3; i++) {
-        c = get(stream);
-
-        if(c < 48 || c > 57) {
-            back(stream, 1);
+    for(int i = 0; i < 3; i++)
+    {
+        if(*pointer >= n)
             break;
+
+        char c = instructions.at(*pointer);
+
+        if(c < CHAR_0_CODE || c > CHAR_9_CODE)
+            break;
+        
+        value = value * 10 + c - CHAR_0_CODE;
+        ok = true;
+        (*pointer)++;
+    }
+
+    *dest = value;
+    return ok;
+}
+
+bool isMul(string& instructions, int* pointer, int* x, int* y)
+{
+    int n = instructions.size();
+
+    for(int i = 0; i < STR_MUL_LEN; i++)
+    {
+        if(*pointer >= n || instructions.at(*pointer) != STR_MUL[i])
+            return false;
+        
+        (*pointer)++;
+    }
+
+    if(*pointer >= n || instructions.at(*pointer) != CHAR_L_PARENTHESIS)
+        return false;
+    
+    (*pointer)++;
+
+    if(!getInt(instructions, pointer, x))
+        return false;
+
+    if(*pointer >= n || instructions.at(*pointer) != CHAR_COMMA)
+        return false;
+    
+    (*pointer)++;
+
+    if(!getInt(instructions, pointer, y))
+        return false;
+
+    if(*pointer >= n || instructions.at(*pointer) != CHAR_R_PARENTHESIS)
+        return false;
+        
+    return true;
+}
+
+bool isDo(string& instructions, int* pointer)
+{
+    int n = instructions.size();
+
+    for(int i = 0; i < STR_DO_LEN; i++)
+    {
+        if(*pointer >= n || instructions.at(*pointer) != STR_DO[i])
+            return false;
+        
+        (*pointer)++;
+    }
+
+    if(*pointer >= n || instructions.at(*pointer) != CHAR_L_PARENTHESIS)
+        return false;
+    
+    (*pointer)++;
+
+    if(*pointer >= n || instructions.at(*pointer) != CHAR_R_PARENTHESIS)
+        return false;
+
+    return true;
+}
+
+bool isDont(string& instructions, int* pointer)
+{
+    int n = instructions.size();
+
+    for(int i = 0; i < STR_DONT_LEN; i++)
+    {
+        if(*pointer >= n || instructions.at(*pointer) != STR_DONT[i])
+            return false;
+        
+        (*pointer)++;
+    }
+
+    if(*pointer >= n || instructions.at(*pointer) != CHAR_L_PARENTHESIS)
+        return false;
+    
+    (*pointer)++;
+
+    if(*pointer >= n || instructions.at(*pointer) != CHAR_R_PARENTHESIS)
+        return false;
+        
+    return true;
+}
+
+long run(string file)
+{
+    string instructions = readInput(file);
+    int x, y, tmp, i = 0, n = instructions.length();
+    long total = 0;
+    bool mulEnabled = true;
+
+    while(i < n)
+    {
+        tmp = i;
+
+        if(isDo(instructions, &tmp))
+        {
+            mulEnabled = true;
+            i = tmp;
         }
 
-        ints.push_back((c - 48));
+        if(isDont(instructions, &i))
+            mulEnabled = false;
+        else if(mulEnabled && isMul(instructions, &i, &x, &y))
+            total += x * y;
+
+        i++;
     }
 
-    int res = 0;
-    for(int i = 0; i < ints.size(); i++) {
-        res += ints[i] * pow(10, ints.size() - i - 1);
-    }
-
-    *dest = res;
-    return !ints.empty();
+    return total;
 }
 
-bool isMul(ifstream& stream, int* x, int* y) {
-    return isStr(stream, "mul") && isChar(stream, '(') && isInt(stream, x) && isChar(stream, ',') && isInt(stream, y) && isChar(stream, ')');
-}
-
-bool isDo(ifstream& stream, int* read) {
-    return isStr(stream, "do()", read);
-}
-
-bool isDont(ifstream& stream, int* read) {
-    return isStr(stream, "don't()", read);
-}
-
-int main() {
-    ifstream stream("inputs/input");
-    long total = 0;
-    int x, y, read;
-    bool doMul = true;
-
-    if(!stream) {
-        cerr << "Failed to open input file" << endl;
+int main(int argc, char** argv)
+{
+    if(argc < 2)
+    {
+        cerr << "Missing input file" << endl;
         return 1;
     }
 
-    while(!stream.eof()) {
-        if(doMul) {
-            if(isDont(stream, &read))
-                doMul = false;
-            else if(!stream.eof())
-                back(stream, read);
-            else
-                break;
-        } else {
-            if(isDo(stream, &read))
-                doMul = true;
-            else if(!stream.eof())
-                back(stream, read);
-            else
-                break;
-        }
+    cout << "----- AOC 2024 DAY 03 : PART 2 -----" << endl;
 
-        if(isMul(stream, &x, &y) && doMul)
-            total += x * y;
-    }
+    for(int i = 1; i < argc; i++)
+        cout << argv[i] << ": " << run(argv[i]) << endl;
 
-    stream.close();
-
-    cout << "Result: " << total << endl;
     return 0;
 }

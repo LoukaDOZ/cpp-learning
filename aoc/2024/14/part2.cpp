@@ -7,10 +7,6 @@
 #include <unistd.h>
 
 #define MOVE_N_TIMES 100
-#define EXAMPLE_SPACE_X 11
-#define EXAMPLE_SPACE_Y 7
-#define INPUT_SPACE_X 101
-#define INPUT_SPACE_Y 103
 #define MIN_CONTINUOUS 30
 
 using namespace std;
@@ -124,19 +120,6 @@ bool checkTree(vector<vector<int>>& grid)
     return maxContinuous > MIN_CONTINUOUS;
 }
 
-void printg(vector<vector<int>>& grid)
-{
-    for(int i = 0; i < grid.size(); i++)
-    {
-        for(int j = 0; j < grid[i].size(); j++)
-        {
-            cout<<(grid[i][j] == 0 ? '.' : (char) (48 + grid[i][j]));
-        }
-        cout<<endl;
-    }
-    cout<<endl;
-}
-
 long run(string file, pos_t space)
 {
     vector<robot_t> robots = readInput(file);
@@ -164,9 +147,35 @@ long run(string file, pos_t space)
     return seconds;
 }
 
-int main()
+pos_t askSpace(string filename)
 {
-    cout << "----- PART 2 -----" << endl;
-    cout << "Input:\t " << run("inputs/input", {101, 103}) << endl;
+    pos_t space = {-1, -1};
+
+    while(space.x < 0 || space.y < 0)
+    {
+        cout << '[' << filename << "] Enter puzzle space as \"<x> <y>\" :" << endl;
+        cin >> space.x;
+        cin >> space.y;
+    }
+
+    return space;
+}
+
+int main(int argc, char** argv)
+{
+    if(argc < 2)
+    {
+        cerr << "Missing input file" << endl;
+        return 1;
+    }
+
+    cout << "----- AOC 2024 DAY 14 : PART 2 -----" << endl;
+
+    for(int i = 1; i < argc; i++)
+    {
+        pos_t space = askSpace(argv[i]);
+        cout << argv[i] << ": " << run(argv[i], space) << endl;
+    }
+
     return 0;
 }
