@@ -1,11 +1,13 @@
 class Solution {
 public:
-    vector<vector<int>> validArrangement(vector<vector<int>>& pairs) {
+    vector<vector<int>> validArrangement(vector<vector<int>>& pairs)
+    {
         vector<vector<int>> res;
         map<int, vector<int>> graph;
         map<int, int> inEdges;
 
-        for(int i = 0; i < pairs.size(); i++) {
+        for(int i = 0; i < pairs.size(); i++)
+        {
             int front = pairs[i][0];
             int back = pairs[i][1];
 
@@ -26,8 +28,10 @@ public:
         }
 
         int start = graph.begin()->first;
-        for(map<int,int>::iterator it = inEdges.begin(); it != inEdges.end(); ++it) {
-            if(graph[it->first].size() - inEdges[it->first] == 1) {
+        for(map<int,int>::iterator it = inEdges.begin(); it != inEdges.end(); ++it)
+        {
+            if(graph[it->first].size() - inEdges[it->first] == 1)
+            {
                 start = it->first;
                 break;
             }
@@ -37,10 +41,12 @@ public:
         int last = 0;
         queue.push(start);
 
-        while(!queue.empty()) {
+        while(!queue.empty())
+        {
             int current = queue.top();
 
-            if(graph[current].size() == 0) {
+            if(graph[current].size() == 0)
+            {
                 queue.pop();
                 last--;
                 continue;

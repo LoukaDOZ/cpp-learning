@@ -69,7 +69,8 @@ public:
         return {minDiameter, maxDiameter};
     }
 
-    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {
+    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2)
+    {
         pair<int,int> diameter1 = getMinDiameter(edges1);
         pair<int,int> diameter2 = getMinDiameter(edges2);
         int minMerged = diameter1.first + diameter2.first + 1;

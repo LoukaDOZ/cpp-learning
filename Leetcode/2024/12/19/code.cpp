@@ -1,6 +1,7 @@
 class Solution {
 public: 
-    int maxChunksToSorted(vector<int>& arr) {
+    int maxChunksToSorted(vector<int>& arr)
+    {
         int maxChunks = 0, expectedSum = 0, currentSum = 0;
         int n = arr.size();
 

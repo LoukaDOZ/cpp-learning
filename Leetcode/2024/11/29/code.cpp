@@ -1,6 +1,7 @@
 class Solution {
 public:
-    int minimumTime(vector<vector<int>>& grid) {
+    int minimumTime(vector<vector<int>>& grid)
+    {
         if(grid[0][1] > 1 && grid[1][0] > 1)
             return -1;
 
@@ -12,20 +13,24 @@ public:
         times[0][0] = 0;
         queue.push({0,0});
 
-        while(!queue.empty()) {
+        while(!queue.empty())
+        {
             pair<int,int> pos = queue.front();
             queue.pop();
 
-            for(pair<int,int> dir: directions) {
+            for(pair<int,int> dir: directions)
+            {
                 int x = pos.first + dir.first;
                 int y = pos.second + dir.second;
 
-                if(x >= 0 && x < m && y >= 0 && y < n) {
+                if(x >= 0 && x < m && y >= 0 && y < n)
+                {
                     int ptime = times[pos.first][pos.second];
                     int ngrid = grid[x][y];
                     int time = ptime + 1 >= ngrid ? ptime + 1 : ngrid + ((ngrid - 1 - ptime) % 2);
 
-                    if(time < times[x][y]) {
+                    if(time < times[x][y])
+                    {
                         times[x][y] = time;
                         queue.push({x,y});
                     }

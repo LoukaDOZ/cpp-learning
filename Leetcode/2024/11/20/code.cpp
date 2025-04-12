@@ -5,15 +5,18 @@ using namespace std;
 
 class Solution {
 public:
-    int minCount(int* count) {
+    int minCount(int* count)
+    {
         return min(count[0], min(count[1], count[2]));
     }
 
-    int cToI(char c) {
+    int cToI(char c)
+    {
         return c - 97;
     }
 
-    int takeCharacters(string s, int k) {
+    int takeCharacters(string s, int k)
+    {
         int count[3] = {0, 0, 0};
 
         for(int i = 0; i < s.length(); i++)
@@ -25,10 +28,12 @@ public:
         int res = s.length() + 1;
         int end = 0;
 
-        for(int i = 0; i < s.length(); i++) {
+        for(int i = 0; i < s.length(); i++)
+        {
             count[cToI(s.at(i))]--;
 
-            while(minCount(count) < k) {
+            while(minCount(count) < k)
+            {
                 count[cToI(s.at(end))]++;
                 end++;
             }

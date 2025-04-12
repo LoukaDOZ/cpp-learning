@@ -1,6 +1,7 @@
 class Solution {
 public:
-    string repeatLimitedString(string s, int repeatLimit) {
+    string repeatLimitedString(string s, int repeatLimit)
+    {
         string repeatLimitedStr = "";
         map<char, int, greater<char>> m;
         int n = s.size();

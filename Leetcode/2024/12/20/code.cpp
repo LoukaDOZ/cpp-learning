@@ -11,7 +11,8 @@
  */
 class Solution {
 public:
-    TreeNode* reverseOddLevels(TreeNode* root) {
+    TreeNode* reverseOddLevels(TreeNode* root)
+    {
         if(root->left == nullptr)
             return root;
 

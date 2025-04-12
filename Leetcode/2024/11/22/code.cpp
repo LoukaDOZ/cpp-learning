@@ -1,14 +1,17 @@
 class Solution {
 public:
-    int maxEqualRowsAfterFlips(vector<vector<int>>& matrix) {
+    int maxEqualRowsAfterFlips(vector<vector<int>>& matrix)
+    {
         map<string, int> rowCount;
         int best = 0;
 
-        for(vector<int> row: matrix) {
+        for(vector<int> row: matrix)
+        {
             stringstream s;
             string key;
 
-            if(row[0] == 0) {
+            if(row[0] == 0)
+            {
                 for(int col: row)
                     s << col;
             } else {

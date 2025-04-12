@@ -1,6 +1,7 @@
 class Solution {
 public:
-    vector<int> finalPrices(vector<int>& prices) {
+    vector<int> finalPrices(vector<int>& prices)
+    {
         int n = prices.size();
 
         for(int i = 0; i < n; i++)

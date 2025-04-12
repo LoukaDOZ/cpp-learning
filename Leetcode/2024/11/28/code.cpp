@@ -1,6 +1,7 @@
 class Solution {
 public:
-    int minimumObstacles(vector<vector<int>>& grid) {
+    int minimumObstacles(vector<vector<int>>& grid)
+    {
         int m = grid.size();
         int n = grid[0].size();
 
@@ -11,18 +12,22 @@ public:
         distances[0][0] = 0;
         queue.push_front({0, 0});
 
-        while(!queue.empty()) {
+        while(!queue.empty())
+        {
             pair<int,int> pos = queue.front();
             queue.pop_front();
 
-            for(pair<int,int> next: nextPos) {
+            for(pair<int,int> next: nextPos)
+            {
                 int x = pos.first + next.first;
                 int y = pos.second + next.second;
 
-                if(x >= 0 && x < m && y >= 0 && y < n) {
+                if(x >= 0 && x < m && y >= 0 && y < n)
+                {
                     int dist = distances[pos.first][pos.second] + grid[x][y];
 
-                    if(dist < distances[x][y]) {
+                    if(dist < distances[x][y])
+                    {
                         distances[x][y] = dist;
 
                         if(grid[x][y] == 1)
